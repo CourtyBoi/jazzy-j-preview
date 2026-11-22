@@ -1,0 +1,610 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="color-scheme" content="light">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Jazzy J&#39;s Barbershop &amp; Salon — Social Media &amp; Growth Sample Pack</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../static/styles.css">
+  <style>
+    .demo-shell {
+      max-inline-size: 36rem;
+      margin-inline: auto;
+      padding: 1.25rem 1rem 4rem;
+    }
+    .demo-carousel {
+      position: relative;
+      margin-block: 1rem 1.75rem;
+    }
+    .demo-carousel-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 0.75rem;
+      margin-block-end: 0.75rem;
+    }
+    .demo-carousel-controls {
+      display: flex;
+      gap: 0.5rem;
+    }
+    .demo-carousel-controls button {
+      min-inline-size: 2.5rem;
+      min-block-size: 2.5rem;
+      padding: 0.4rem 0.85rem;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      background: var(--surface);
+      color: var(--text);
+      font-size: 0.85rem;
+      font-weight: 600;
+      cursor: pointer;
+      touch-action: manipulation;
+    }
+    .demo-carousel-controls button:focus-visible,
+    .demo-carousel-markers button:focus-visible {
+      outline: 2px solid var(--text);
+      outline-offset: 2px;
+    }
+    .demo-carousel-track {
+      display: flex;
+      gap: 1rem;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      overscroll-behavior-x: contain;
+      touch-action: manipulation;
+      scrollbar-width: none;
+    }
+    .demo-carousel-track::-webkit-scrollbar {
+      display: none;
+    }
+    @media (prefers-reduced-motion: no-preference) {
+      .demo-carousel-track {
+        scroll-behavior: smooth;
+      }
+    }
+    .demo-carousel-track > * {
+      flex: 0 0 100%;
+      scroll-snap-align: center;
+      box-sizing: border-box;
+    }
+    .demo-carousel-track > :first-child {
+      order: clamp(0, var(--current) - (var(--children-count, sibling-count()) - 3), 1);
+    }
+    .demo-carousel-track > :last-child {
+      order: calc(-1 * clamp(0, 2 - var(--current), 1));
+    }
+    .social-mock-card {
+      background: #ffffff;
+      border: 1px solid var(--border-subtle);
+      border-radius: 1.15rem;
+      overflow: hidden;
+      box-shadow: 0 8px 24px rgba(24, 22, 20, 0.06);
+    }
+    .social-mock-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.8rem 1rem;
+      border-block-end: 1px solid var(--border-subtle);
+      font-size: 0.84rem;
+    }
+    .social-avatar-row {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+    .social-avatar {
+      inline-size: 2rem;
+      block-size: 2rem;
+      border-radius: 999px;
+      background: #181614;
+      color: #f6f3ee;
+      display: grid;
+      place-items: center;
+      font-family: "Instrument Serif", Georgia, serif;
+      font-size: 1rem;
+    }
+    .social-channel-pill {
+      font-size: 0.72rem;
+      font-weight: 600;
+      padding: 0.22rem 0.55rem;
+      border-radius: 999px;
+      background: var(--surface-alt);
+      color: var(--text);
+    }
+    .social-photo-stage {
+      position: relative;
+      aspect-ratio: 4 / 5;
+      background: #181614;
+      overflow: hidden;
+    }
+    .social-photo-stage img {
+      inline-size: 100%;
+      block-size: 100%;
+      object-fit: cover;
+      display: block;
+      opacity: 0.88;
+    }
+    .social-photo-badge {
+      position: absolute;
+      inset: auto 0.85rem 0.85rem 0.85rem;
+      background: rgba(24, 22, 20, 0.86);
+      color: #f6f3ee;
+      padding: 0.75rem 0.95rem;
+      border-radius: 0.8rem;
+      backdrop-filter: blur(6px);
+    }
+    .social-photo-badge strong {
+      display: block;
+      font-size: 0.96rem;
+      margin-block-end: 0.15rem;
+    }
+    .social-photo-badge span {
+      font-size: 0.78rem;
+      color: #d9d3c9;
+    }
+    .social-slide-chip {
+      position: absolute;
+      inset: 0.85rem 0.85rem auto auto;
+      background: rgba(24, 22, 20, 0.78);
+      color: #f6f3ee;
+      font-size: 0.73rem;
+      font-weight: 600;
+      padding: 0.25rem 0.6rem;
+      border-radius: 999px;
+    }
+    .social-caption-box {
+      padding: 1rem 1.05rem 1.15rem;
+      font-size: 0.89rem;
+      line-height: 1.5;
+      color: var(--text);
+    }
+    .social-caption-box p {
+      margin-block: 0 0.6rem;
+    }
+    .social-tags {
+      font-size: 0.78rem;
+      color: var(--muted);
+      margin-block: 0;
+    }
+    .demo-carousel-markers {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 0.35rem;
+      margin-block-top: 0.75rem;
+    }
+    .demo-carousel-markers button {
+      min-inline-size: 2rem;
+      min-block-size: 2rem;
+      padding: 0;
+      border: 0;
+      background: transparent;
+      display: grid;
+      place-items: center;
+      cursor: pointer;
+      touch-action: manipulation;
+    }
+    .demo-carousel-markers button::before {
+      content: "";
+      inline-size: 0.55rem;
+      block-size: 0.55rem;
+      border-radius: 999px;
+      border: 1.5px solid #181614;
+      background: transparent;
+      transition: inline-size 0.18s ease, background-color 0.18s ease;
+    }
+    .demo-carousel-markers button[aria-current="true"]::before {
+      inline-size: 1.6rem;
+      background: #181614;
+    }
+    .sr-only {
+      position: absolute;
+      inline-size: 1px;
+      block-size: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
+    }
+    .step-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: grid;
+      gap: 0.75rem;
+    }
+    .step-item {
+      background: var(--surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: 0.9rem;
+      padding: 0.95rem 1.05rem;
+    }
+    .step-item strong {
+      display: block;
+      font-size: 0.95rem;
+      margin-block-end: 0.2rem;
+    }
+    .step-item p {
+      margin: 0;
+      font-size: 0.86rem;
+      color: var(--muted);
+    }
+    .idea-card {
+      background: var(--surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: 1rem;
+      padding: 1.15rem;
+      margin-block-end: 0.85rem;
+    }
+  </style>
+</head>
+<body class="editorial-salon">
+  <div class="salon-ribbon">
+    Prepared for <strong>Allicia Johnson</strong> &middot; Jazzy J&#39;s Barbershop &amp; Salon
+  </div>
+
+  <header class="site-header">
+    <div class="header-inner">
+      <span class="serif-display" style="font-size: 1.25rem;">Jazzy J's Sample Pack</span>
+      <a class="btn-link btn-secondary" style="font-size: 0.82rem; padding: 0.45rem 0.85rem;" href="../index.html">Full Site Preview &rarr;</a>
+    </div>
+  </header>
+
+  <main class="demo-shell">
+    <section style="margin-block-end: 1.25rem;">
+      <span class="eyebrow">Facebook + Instagram (@jazzyjbarber)</span>
+      <h1 class="serif-display" style="font-size: clamp(2.1rem, 6vw, 2.85rem); margin-block-end: 0.5rem;">
+        Consistent weekly posts built from real shop work.
+      </h1>
+      <p class="hint" style="margin: 0; font-size: 0.93rem;">
+        Swipe below to see 3 example posts rotating your daytime cuts, high-ticket salon &amp; head-spa services, and After-Dark booking rules.
+      </p>
+    </section>
+
+    <!-- Swipeable FB + IG Sample Post Carousel -->
+    <section class="demo-carousel" aria-roledescription="carousel" aria-label="Sample weekly Facebook and Instagram posts">
+      <div class="demo-carousel-bar">
+        <span class="eyebrow" style="margin: 0;">Swipe 3 Weekly Post Pillars</span>
+        <div class="demo-carousel-controls">
+          <button type="button" data-direction="previous" aria-label="Previous sample post">Prev</button>
+          <button type="button" data-direction="next" aria-label="Next sample post">Next</button>
+        </div>
+      </div>
+
+      <div class="demo-carousel-track" tabindex="0" role="group" aria-label="Sample posts">
+        <!-- Sample 1: Tuesday Daytime Cuts & 5 Chairs -->
+        <article class="social-mock-card" role="group" aria-roledescription="slide" aria-label="1 of 3" data-marker-name="Go to sample post 1: Daytime Cuts">
+          <div class="social-mock-head">
+            <div class="social-avatar-row">
+              <div class="social-avatar" aria-hidden="true">JJ</div>
+              <div>
+                <strong style="display:block; line-height:1.15;">jazzyjbarber</strong>
+                <span style="font-size:0.74rem; color:var(--muted);">4603 S 14th St &middot; Abilene, TX</span>
+              </div>
+            </div>
+            <span class="social-channel-pill">Tue &middot; IG + FB</span>
+          </div>
+          <div class="social-photo-stage">
+            <img src="../static/images/jazzy_hero.jpg" width="1080" height="1350" alt="Grooming stations at Jazzy J's Barbershop and Salon">
+            <span class="social-slide-chip">4:5 Multi-Photo Carousel</span>
+            <div class="social-photo-badge">
+              <strong>$25 Men's Cuts &middot; $20 Kids Cuts (8AM–8PM)</strong>
+              <span> Swap with real fade &amp; lineup photos from your camera roll</span>
+            </div>
+          </div>
+          <div class="social-caption-box">
+            <p>
+              <strong>jazzyjbarber</strong> Fresh out the chair on South 14th! Walk right in between <strong>8:00 AM and 8:00 PM</strong> or tap the link in our bio to lock in your spot directly with Allicia, Novi, Damien, Isaiah, or Michael.
+            </p>
+            <p>
+              $25 Men's Cut &middot; $35 Cut &amp; Beard &middot; $20 Kids Cut &middot; Complimentary trimmer brow clean-up on request.
+            </p>
+            <p class="social-tags">#AbileneTX #AbileneBarber #JazzyJs #South14th #DyessAFB #AbileneKidsCuts</p>
+          </div>
+        </article>
+
+        <!-- Sample 2: Friday High-Ticket Head Spa & Braids -->
+        <article class="social-mock-card" role="group" aria-roledescription="slide" aria-label="2 of 3" data-marker-name="Go to sample post 2: Head Spa and Braids">
+          <div class="social-mock-head">
+            <div class="social-avatar-row">
+              <div class="social-avatar" aria-hidden="true">JJ</div>
+              <div>
+                <strong style="display:block; line-height:1.15;">Jazzy J's Barbershop &amp; Salon</strong>
+                <span style="font-size:0.74rem; color:var(--muted);">Facebook + Instagram Carousel</span>
+              </div>
+            </div>
+            <span class="social-channel-pill">Fri &middot; IG + FB</span>
+          </div>
+          <div class="social-photo-stage">
+            <img src="../static/images/jazzy_headspa.jpg" width="1080" height="1350" loading="lazy" alt="Botanical steam head spa basin and scalp ritual">
+            <span class="social-slide-chip">High-Ticket Spotlight</span>
+            <div class="social-photo-badge">
+              <strong>$60 Botanical Steam Head Spa &amp; Braids</strong>
+              <span> Spotlights Head Spa, Silkpress ($125+), Loc Retwists ($85+) &amp; Boho Braids</span>
+            </div>
+          </div>
+          <div class="social-caption-box">
+            <p>
+              <strong>jazzyjbarber</strong> Ready to reset after a long week? Treat your scalp and crown to our 60-minute <strong>Botanical Steam Head Spa ($60)</strong>—warm aromatic steam, scalp exfoliation, tension massage, and deep conditioning.
+            </p>
+            <p>
+              Also booking Starter Locs, Retwists ($85+), Silkpress ($125+), and Box &amp; Boho Braids at 4603 S 14th St. Reserve your chair at the link in bio.
+            </p>
+            <p class="social-tags">#AbileneHeadSpa #AbileneSalon #AbileneBraids #AbileneLocs #SilkpressAbilene #JazzyJs</p>
+          </div>
+        </article>
+
+        <!-- Sample 3: Sunday After-Dark Shift Crew -->
+        <article class="social-mock-card" role="group" aria-roledescription="slide" aria-label="3 of 3" data-marker-name="Go to sample post 3: Jazzy J After Dark">
+          <div class="social-mock-head">
+            <div class="social-avatar-row">
+              <div class="social-avatar" aria-hidden="true">JJ</div>
+              <div>
+                <strong style="display:block; line-height:1.15;">jazzyjbarber</strong>
+                <span style="font-size:0.74rem; color:var(--muted);">Featured on KTXS News</span>
+              </div>
+            </div>
+            <span class="social-channel-pill">Sun &middot; IG + FB</span>
+          </div>
+          <div class="social-photo-stage">
+            <img src="../static/images/jazzy_hero.jpg" width="1080" height="1350" loading="lazy" alt="Overnight appointment chair at Jazzy J's">
+            <span class="social-slide-chip">8PM–8AM Rules Clear</span>
+            <div class="social-photo-badge">
+              <strong>Jazzy J After Dark (8:00 PM – 8:00 AM)</strong>
+              <span> Strictly 24-hr advance online booking + prepayment (no walk-ins)</span>
+            </div>
+          </div>
+          <div class="social-caption-box">
+            <p>
+              <strong>jazzyjbarber</strong> Working nights at Dyess AFB, Hendrick Health, or late shifts around Abilene? <strong>Jazzy J After Dark (8:00 PM – 8:00 AM)</strong> has you covered.
+            </p>
+            <p>
+              Overnight hours are <strong>strictly by advance online appointment &amp; prepayment</strong> (booked 24 hrs ahead—no overnight walk-ins). $40 After Dark Men's Cut &middot; $55 Cut &amp; Beard &middot; Braids &amp; Locs available.
+            </p>
+            <p class="social-tags">#DyessAFB #HendrickHealth #AbileneNightShift #JazzyJAfterDark #AbileneBarber</p>
+          </div>
+        </article>
+      </div>
+
+      <p class="sr-only" role="status" aria-live="polite"></p>
+      <nav class="demo-carousel-markers" aria-label="Choose a sample post"></nav>
+    </section>
+
+    <!-- Simple 3-Step Workflow -->
+    <section style="margin-block-end: 2.25rem;">
+      <span class="eyebrow">Zero Hassle Workflow</span>
+      <h2 class="serif-display" style="font-size: 1.75rem; margin-block-end: 0.85rem;">How the haircut trade works</h2>
+      <ul class="step-list">
+        <li class="step-item">
+          <strong>1. Drop raw phone pictures anytime</strong>
+          <p>Toss haircut, braid, loc, or head-spa snapshots into one shared Google folder (or just text them over). Tell us which barber did the cut and we'll tag their chair.</p>
+        </li>
+        <li class="step-item">
+          <strong>2. Posted for you every Tuesday &amp; Friday</strong>
+          <p>Jennifer and I brighten and crop the photos into clean 4:5 swipe carousels, write captions with your real prices and hours, and schedule both Facebook and Instagram.</p>
+        </li>
+        <li class="step-item">
+          <strong>3. Simple haircut trade ($0 out of pocket)</strong>
+          <p>Covered by haircuts while we feature Jazzy J's as our local Abilene portfolio example.</p>
+        </li>
+      </ul>
+    </section>
+
+    <!-- "More Ideas" Bonus & Future Add-Ons -->
+    <section>
+      <span class="eyebrow">Bonus &amp; Future Ideas</span>
+      <h2 class="serif-display" style="font-size: 1.75rem; margin-block-end: 0.85rem;">Other things we can bolt on anytime</h2>
+
+      <div class="idea-card" style="background: #181614; color: #f6f3ee;">
+        <span class="eyebrow" style="color: #c9c3ba;">Ready to Preview Today</span>
+        <h3 class="serif-display" style="font-size: 1.55rem; color: #f6f3ee; margin-block-end: 0.35rem;">1-Tap Barber &amp; Service Website</h3>
+        <p style="font-size: 0.88rem; color: #d9d3c9; margin-block-end: 1rem;">
+          Clean mobile Link-in-Bio website where clients tap straight into Square for Allicia, Novi, Damien, Isaiah, or Michael—with Daytime vs. After-Dark rules crystal clear.
+        </p>
+        <a class="btn-link" style="background: #f6f3ee; color: #181614; font-weight: 600;" href="../index.html">Open Full Website Preview &rarr;</a>
+      </div>
+
+      <div class="idea-card">
+        <h3 style="font-size: 1rem; margin-block-end: 0.25rem;">Google Maps Revival &amp; Tap-to-Review Stands</h3>
+        <p class="hint" style="margin: 0; font-size: 0.86rem;">
+          Weekly Google Business photo updates + countertop tap/QR review stands to climb from 31 reviews past 60+ 5-star Google reviews on South 14th St.
+        </p>
+      </div>
+
+      <div class="idea-card" style="margin-block-end: 0;">
+        <h3 style="font-size: 1rem; margin-block-end: 0.25rem;">Local $60 Head Spa &amp; Braids Radius Boost</h3>
+        <p class="hint" style="margin: 0; font-size: 0.86rem;">
+          Put your best weekly Head Spa, Silkpress, and Braids carousel right in front of local women and Dyess AFB families within 5 miles of the shop.
+        </p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="corp-footer">
+    <div class="corp-footer-inner">
+      <div><strong>White Digital Group</strong> &middot; Courtland &amp; Jennifer White &middot; Abilene, TX</div>
+      <div><a href="tel:2144054377" style="font-weight:600;">(214) 405-4377</a></div>
+    </div>
+  </footer>
+
+  <script type="module">
+    const carousel = document.querySelector(".demo-carousel");
+    if (carousel) {
+      const track = carousel.querySelector(".demo-carousel-track");
+      const slides = Array.from(track.children);
+      const markersNav = carousel.querySelector(".demo-carousel-markers");
+      const statusEl = carousel.querySelector('[role="status"]');
+      const prevBtn = carousel.querySelector('[data-direction="previous"]');
+      const nextBtn = carousel.querySelector('[data-direction="next"]');
+      const prefersSmooth = () => window.matchMedia("(prefers-reduced-motion: no-preference)").matches;
+
+      if (!CSS.supports("order: sibling-count()")) {
+        track.style.setProperty("--children-count", String(slides.length));
+      }
+
+      const markers = slides.map((slide, idx) => {
+        const btn = document.createElement("button");
+        btn.type = "button";
+        btn.setAttribute("aria-label", slide.dataset.markerName || `Go to slide ${idx + 1}`);
+        if (idx === 0) btn.setAttribute("aria-current", "true");
+        markersNav.append(btn);
+        return btn;
+      });
+
+      let activeMarkerIdx = 0;
+      let settledIdx = 0;
+      let hasInitialized = false;
+      let pendingTarget = null;
+      let pendingRequestLeft = null;
+      let queuedDirection = null;
+      let rafPending = false;
+
+      const setActiveMarker = (idx) => {
+        if (idx === activeMarkerIdx) return;
+        markers[activeMarkerIdx]?.removeAttribute("aria-current");
+        markers[idx]?.setAttribute("aria-current", "true");
+        activeMarkerIdx = idx;
+      };
+
+      const slideCenterOffset = (slide) => {
+        const trackRect = track.getBoundingClientRect();
+        const slideRect = slide.getBoundingClientRect();
+        return (slideRect.left + slideRect.width / 2) - (trackRect.left + trackRect.width / 2);
+      };
+
+      const findNearestSlide = () => {
+        let best = slides[0];
+        let bestDist = Infinity;
+        for (const slide of slides) {
+          const dist = Math.abs(slideCenterOffset(slide));
+          if (dist < bestDist) {
+            bestDist = dist;
+            best = slide;
+          }
+        }
+        return best;
+      };
+
+      const getVisualOrderSlides = () =>
+        slides.slice().sort((a, b) => a.getBoundingClientRect().left - b.getBoundingClientRect().left);
+
+      const applyParkingState = (currentVal, lockOverflow) => {
+        const anchor = pendingTarget || findNearestSlide();
+        const beforeOffset = slideCenterOffset(anchor);
+        track.style.scrollSnapType = "none";
+        if (lockOverflow) track.style.overflowX = "hidden";
+        if (currentVal === null) {
+          track.style.setProperty("--current", "initial");
+        } else {
+          track.style.setProperty("--current", String(currentVal));
+        }
+        const afterOffset = slideCenterOffset(anchor);
+        const delta = afterOffset - beforeOffset;
+        if (Math.abs(delta) > 0.5) {
+          track.scrollBy({ left: delta, behavior: "instant" });
+        }
+        track.style.scrollSnapType = "";
+        if (lockOverflow) {
+          requestAnimationFrame(() => {
+            requestAnimationFrame(() => {
+              track.style.overflowX = "";
+            });
+          });
+        }
+      };
+
+      const scrollToSlide = (targetSlide) => {
+        pendingTarget = targetSlide;
+        pendingRequestLeft = track.scrollLeft;
+        setActiveMarker(slides.indexOf(targetSlide));
+        const offset = slideCenterOffset(targetSlide);
+        track.scrollBy({
+          left: offset,
+          behavior: prefersSmooth() ? "smooth" : "instant",
+        });
+      };
+
+      const stepByDirection = (dir) => {
+        if (track.style.getPropertyValue("--current") === "initial") {
+          queuedDirection = dir;
+          return;
+        }
+        const visual = getVisualOrderSlides();
+        const baseSlide = pendingTarget || findNearestSlide();
+        const pos = visual.indexOf(baseSlide);
+        const nextSlide = visual[(pos + dir + visual.length) % visual.length];
+        if (nextSlide) scrollToSlide(nextSlide);
+      };
+
+      prevBtn?.addEventListener("click", () => stepByDirection(-1));
+      nextBtn?.addEventListener("click", () => stepByDirection(1));
+
+      markers.forEach((btn, idx) => {
+        btn.addEventListener("click", () => {
+          const targetSlide = slides[idx];
+          const currentSlide = findNearestSlide();
+          if (targetSlide === currentSlide && !pendingTarget) return;
+          applyParkingState(null, false);
+          scrollToSlide(targetSlide);
+        });
+      });
+
+      track.addEventListener("scroll", () => {
+        if (pendingTarget || rafPending) return;
+        rafPending = true;
+        requestAnimationFrame(() => {
+          rafPending = false;
+          if (pendingTarget) return;
+          const nearest = findNearestSlide();
+          setActiveMarker(slides.indexOf(nearest));
+        });
+      }, { passive: true });
+
+      const onSettle = () => {
+        if (pendingTarget && pendingRequestLeft !== null && Math.abs(track.scrollLeft - pendingRequestLeft) < 1) {
+          return;
+        }
+        pendingTarget = null;
+        pendingRequestLeft = null;
+        const nearest = findNearestSlide();
+        const idx = slides.indexOf(nearest);
+        setActiveMarker(idx);
+
+        const hasQueued = queuedDirection !== null;
+        applyParkingState(idx, !hasInitialized ? false : !hasQueued);
+
+        if (hasInitialized && idx !== settledIdx && statusEl) {
+          statusEl.textContent = `Slide ${idx + 1} of ${slides.length}`;
+        }
+        settledIdx = idx;
+        hasInitialized = true;
+
+        if (hasQueued) {
+          const dir = queuedDirection;
+          queuedDirection = null;
+          stepByDirection(dir);
+        }
+      };
+
+      onSettle();
+
+      if ("onscrollend" in window) {
+        track.addEventListener("scrollend", onSettle);
+      } else {
+        let timer = 0;
+        track.addEventListener("scroll", () => {
+          clearTimeout(timer);
+          timer = window.setTimeout(onSettle, 140);
+        }, { passive: true });
+      }
+    }
+  </script>
+</body>
+</html>
