@@ -1,8 +1,11 @@
 User-agent: *
 Allow: /
+Allow: /pricing
 Allow: /site/
 Allow: /case-study/
 Allow: /llms.txt
+Allow: /llms-full.txt
+Allow: /.well-known/agent.json
 Allow: /api/agent/
 Disallow: /admin
 Disallow: /hub
@@ -13,9 +16,12 @@ Disallow: /welcome/
 
 User-agent: Googlebot
 Allow: /
+Allow: /pricing
 Allow: /site/
 Allow: /case-study/
 Allow: /llms.txt
+Allow: /llms-full.txt
+Allow: /.well-known/agent.json
 Allow: /api/agent/
 Disallow: /admin
 Disallow: /hub
@@ -26,9 +32,12 @@ Disallow: /welcome/
 
 User-agent: Bingbot
 Allow: /
+Allow: /pricing
 Allow: /site/
 Allow: /case-study/
 Allow: /llms.txt
+Allow: /llms-full.txt
+Allow: /.well-known/agent.json
 Allow: /api/agent/
 Disallow: /admin
 Disallow: /hub
@@ -39,9 +48,12 @@ Disallow: /welcome/
 
 User-agent: OAI-SearchBot
 Allow: /
+Allow: /pricing
 Allow: /site/
 Allow: /case-study/
 Allow: /llms.txt
+Allow: /llms-full.txt
+Allow: /.well-known/agent.json
 Allow: /api/agent/
 Disallow: /admin
 Disallow: /hub
@@ -52,9 +64,12 @@ Disallow: /welcome/
 
 User-agent: ChatGPT-User
 Allow: /
+Allow: /pricing
 Allow: /site/
 Allow: /case-study/
 Allow: /llms.txt
+Allow: /llms-full.txt
+Allow: /.well-known/agent.json
 Allow: /api/agent/
 Disallow: /admin
 Disallow: /hub
@@ -65,9 +80,12 @@ Disallow: /welcome/
 
 User-agent: GPTBot
 Allow: /
+Allow: /pricing
 Allow: /site/
 Allow: /case-study/
 Allow: /llms.txt
+Allow: /llms-full.txt
+Allow: /.well-known/agent.json
 Allow: /api/agent/
 Disallow: /admin
 Disallow: /hub
@@ -78,9 +96,12 @@ Disallow: /welcome/
 
 User-agent: ClaudeBot
 Allow: /
+Allow: /pricing
 Allow: /site/
 Allow: /case-study/
 Allow: /llms.txt
+Allow: /llms-full.txt
+Allow: /.well-known/agent.json
 Allow: /api/agent/
 Disallow: /admin
 Disallow: /hub
@@ -91,9 +112,12 @@ Disallow: /welcome/
 
 User-agent: PerplexityBot
 Allow: /
+Allow: /pricing
 Allow: /site/
 Allow: /case-study/
 Allow: /llms.txt
+Allow: /llms-full.txt
+Allow: /.well-known/agent.json
 Allow: /api/agent/
 Disallow: /admin
 Disallow: /hub
@@ -104,9 +128,12 @@ Disallow: /welcome/
 
 User-agent: Google-Extended
 Allow: /
+Allow: /pricing
 Allow: /site/
 Allow: /case-study/
 Allow: /llms.txt
+Allow: /llms-full.txt
+Allow: /.well-known/agent.json
 Allow: /api/agent/
 Disallow: /admin
 Disallow: /hub
@@ -117,9 +144,12 @@ Disallow: /welcome/
 
 User-agent: Applebot-Extended
 Allow: /
+Allow: /pricing
 Allow: /site/
 Allow: /case-study/
 Allow: /llms.txt
+Allow: /llms-full.txt
+Allow: /.well-known/agent.json
 Allow: /api/agent/
 Disallow: /admin
 Disallow: /hub

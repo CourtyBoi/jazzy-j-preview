@@ -138,28 +138,58 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // 5. Interactive Landing Page v2.0 Package, Earned-Ownership Website, HIPAA & TX Tax Calculator
+  // 5. Interactive Behavioral Pricing Switcher, A-La-Carte Picker, HIPAA & TX Tax Calculator
   const quoteForm = document.getElementById("package-quote-form");
   if (quoteForm) {
-    const tierPrices = { starter: 249, growth: 399, autopilot: 599 };
+    const isFounding = (quoteForm.getAttribute("data-partner-program") || "standard") === "founding";
+    const tierPrices = isFounding
+      ? { starter: 99, growth: 199, autopilot: 299 }
+      : { starter: 249, growth: 399, autopilot: 599 };
     const tierNames = {
-      starter: "Foundation — Google Maps & Social Presence",
-      growth: "Growth + Voice — Reviews, 24/7 AI Receptionist & Owned Website",
-      autopilot: "Autopilot — Market Dominance & Reactivation Suite",
+      starter: "Foundation",
+      growth: "Growth + Voice",
+      autopilot: "Autopilot",
     };
     const tierChannels = { starter: 2, growth: 3, autopilot: 4 };
+    const extraChUnit = isFounding ? 10 : 20;
+    const websiteUpfrontPrice = isFounding ? 399 : 999;
+    const nfcUnitPrice = isFounding ? 25 : 35;
     const addonPrices = {
-      ai_sync_care: { price: 59, type: "monthly", label: "AI Sync & Edge Cloud Care" },
-      gbp_rescue: { price: 249, type: "one_time", label: "Pre-Flight GBP Audit & Ranking Overhaul" },
-      post_boost: { price: 99, type: "monthly", label: "Automated Local Post & Carousel Boost" },
-      ten_dlc_setup: { price: 49, type: "one_time", label: "Dedicated Local Line & US 10DLC Setup" },
+      ai_sync_care: { price: isFounding ? 29 : 59, type: "monthly", label: "AI Sync & Edge Care" },
+      gbp_rescue: { price: isFounding ? 125 : 249, type: "one_time", label: "Google Maps Overhaul" },
+      post_boost: { price: isFounding ? 49 : 99, type: "monthly", label: "Local Post Boost" },
+      ten_dlc_setup: { price: 49, type: "one_time", label: "Local (325) Line Setup" },
     };
     const hipaaIndustries = new Set(["med_spa", "dental", "chiropractic", "orthodontics", "healthcare_clinic"]);
     const TX_EFFECTIVE_TAX_RATE = 0.066; // 80% Data Processing share * 8.25% Abilene combined rate
 
+    const syncTopTierCards = (isAnnual) => {
+      if (isFounding) return;
+      for (const card of document.querySelectorAll("[data-tier-display-card]")) {
+        const mUsd = card.getAttribute("data-monthly-usd") || "399";
+        const aUsd = card.getAttribute("data-annual-usd") || "339";
+        const saveUsd = card.getAttribute("data-annual-save") || "718";
+        const priceEl = card.querySelector("[data-tier-price-num]");
+        const strikeEl = card.querySelector("[data-tier-strike]");
+        const suffixEl = card.querySelector("[data-tier-price-suffix]");
+        const roiEl = card.querySelector("[data-tier-roi-line]");
+        if (priceEl) priceEl.textContent = `$${isAnnual ? aUsd : mUsd}`;
+        if (strikeEl) strikeEl.hidden = !isAnnual;
+        if (suffixEl) suffixEl.textContent = isAnnual ? "/ mo (billed annually)" : "/ month";
+        if (roiEl) {
+          roiEl.textContent = isAnnual
+            ? `Save $${saveUsd}/year with 15% annual prepay + instant 100% website vesting`
+            : roiEl.getAttribute("data-default-roi") || "";
+        }
+      }
+      for (const topRadio of document.querySelectorAll('input[name="top_billing_preview"]')) {
+        topRadio.checked = topRadio.value === (isAnnual ? "annual" : "monthly");
+      }
+    };
+
     const syncLegacyHasFallback = () => {
       if (typeof CSS !== "undefined" && !CSS.supports("selector(:has(*))")) {
-        for (const card of quoteForm.querySelectorAll(".choice-card, .radio-option")) {
+        for (const card of document.querySelectorAll(".choice-card, .radio-option, .cadence-pill-option")) {
           const inp = card.querySelector("input");
           if (inp) card.classList.toggle("is-active", inp.checked);
         }
@@ -190,23 +220,24 @@ document.addEventListener("DOMContentLoaded", () => {
       const checkedTier = quoteForm.querySelector('input[name="tier_id"]:checked');
       const tierId = checkedTier ? checkedTier.value : "growth";
 
-      // Foundation ($249) requires $999 upfront buyout if they want a new website
+      // Foundation ($249) cannot select $0-down vested website; defaults cleanly to Keep Current Website ($0)
       const webVestedRadio = document.getElementById("web-vested");
-      const webBuyoutRadio = document.getElementById("web-buyout");
+      const webNoneRadio = document.getElementById("web-none");
       if (webVestedRadio) {
-        const eligibleZeroDown = tierId !== "starter";
+        const eligibleZeroDown = !isFounding && tierId !== "starter";
         webVestedRadio.disabled = !eligibleZeroDown;
-        if (!eligibleZeroDown && webVestedRadio.checked && webBuyoutRadio) {
-          webBuyoutRadio.checked = true;
+        if (!eligibleZeroDown && webVestedRadio.checked && webNoneRadio) {
+          webNoneRadio.checked = true;
         }
       }
 
       const checkedCadence = quoteForm.querySelector('input[name="billing_interval"]:checked');
-      const isAnnual = checkedCadence?.value === "annual";
+      const isAnnual = !isFounding && checkedCadence?.value === "annual";
       const discountMult = isAnnual ? 0.85 : 1.0;
+      syncTopTierCards(isAnnual);
 
       const checkedWebMode = quoteForm.querySelector('input[name="website_mode"]:checked');
-      const webMode = checkedWebMode ? checkedWebMode.value : "vested_zero_down";
+      const webMode = checkedWebMode ? checkedWebMode.value : (isFounding || tierId === "starter" ? "none" : "vested_zero_down");
 
       const extraChInput = document.getElementById("extra_channels");
       const nfcQtyInput = document.getElementById("nfc_stand_qty");
@@ -218,20 +249,25 @@ document.addEventListener("DOMContentLoaded", () => {
       let oneTime = 0;
       const lines = [
         {
-          label: `${tierNames[tierId] || "Growth + Voice"}${isAnnual ? " (15% Annual Save)" : ""}`,
+          label: `${tierNames[tierId] || "Growth + Voice"}${isFounding ? " (Founding Partner)" : isAnnual ? " (15% Annual Save)" : ""}`,
           val: `$${baseTierRate.toFixed(isAnnual ? 2 : 0)}/mo`,
         },
       ];
 
-      if (webMode === "vested_zero_down") {
-        lines.push({ label: "Earned-Ownership Website (Vests Mo. 12)", val: "$0 down" });
+      if (webMode === "none") {
+        lines.push({ label: "Keep Current Website / Booking Link", val: "$0" });
+      } else if (webMode === "vested_zero_down") {
+        lines.push({ label: "Optional Earned-Ownership Website (Vests Mo. 12)", val: "$0 down" });
       } else if (webMode === "upfront_buyout") {
-        oneTime += 999;
-        lines.push({ label: "Conversion Website (Day-1 Buyout)", val: "$999 one-time" });
+        oneTime += websiteUpfrontPrice;
+        lines.push({
+          label: isFounding ? "Custom Website Build (Founding Partner)" : "Custom Website Build (Day-1 Ownership)",
+          val: `$${websiteUpfrontPrice} one-time`,
+        });
       }
 
       if (extraCh > 0) {
-        const chCost = Math.round(extraCh * 20 * discountMult * 100) / 100;
+        const chCost = Math.round(extraCh * extraChUnit * discountMult * 100) / 100;
         monthly += chCost;
         lines.push({ label: `Extra Social Channels (x${extraCh})`, val: `+$${chCost.toFixed(isAnnual ? 2 : 0)}/mo` });
       }
@@ -248,8 +284,8 @@ document.addEventListener("DOMContentLoaded", () => {
         }
       }
       if (nfcQty > 0) {
-        oneTime += nfcQty * 35;
-        lines.push({ label: `Acrylic Reception NFC/QR Stands (x${nfcQty})`, val: `$${nfcQty * 35} one-time` });
+        oneTime += nfcQty * nfcUnitPrice;
+        lines.push({ label: `Countertop NFC/QR Review Stands (x${nfcQty})`, val: `$${nfcQty * nfcUnitPrice} one-time` });
       }
 
       const preTaxDueToday = (isAnnual ? monthly * 12 : monthly) + oneTime;
@@ -263,12 +299,16 @@ document.addEventListener("DOMContentLoaded", () => {
       const dueTodayEl = document.getElementById("live-due-today");
       const channelsEl = document.getElementById("live-total-channels");
       const itemizedEl = document.getElementById("live-itemized-list");
+      const submitBtn = document.getElementById("quote-submit-btn");
 
       if (monthlyEl) monthlyEl.textContent = `$${monthly.toFixed(isAnnual ? 2 : 0)}/mo`;
       if (oneTimeEl) oneTimeEl.textContent = `$${oneTime.toFixed(0)}`;
       if (taxEl) taxEl.textContent = `$${txTaxDueToday.toFixed(2)}`;
       if (dueTodayEl) dueTodayEl.textContent = `$${totalAtLaunch.toFixed(2)}`;
       if (channelsEl) channelsEl.textContent = `${totalChannels} connected channels`;
+      if (submitBtn) {
+        submitBtn.textContent = `Create Partner Workspace ($${monthly.toFixed(0)}/mo${oneTime > 0 ? ` + $${oneTime.toFixed(0)} setup` : ""}) \u2192`;
+      }
       if (itemizedEl) {
         itemizedEl.replaceChildren(
           ...lines.map((item) => {
@@ -284,6 +324,17 @@ document.addEventListener("DOMContentLoaded", () => {
       }
       syncLegacyHasFallback();
     };
+
+    // Two-way sync from top-of-section Monthly/Annual pill switcher
+    for (const topRadio of document.querySelectorAll('input[name="top_billing_preview"]')) {
+      topRadio.addEventListener("change", () => {
+        const target = quoteForm.querySelector(`input[name="billing_interval"][value="${topRadio.value}"]`);
+        if (target) {
+          target.checked = true;
+          recalcQuote();
+        }
+      });
+    }
 
     quoteForm.addEventListener("change", recalcQuote);
     quoteForm.addEventListener("input", recalcQuote);
@@ -302,8 +353,39 @@ document.addEventListener("DOMContentLoaded", () => {
       });
     }
 
-    quoteForm.addEventListener("submit", () => {
-      if (!quoteForm.checkValidity()) return;
+    // 1-Click "Add to Quote" buttons on A-La-Carte cards
+    for (const addonBtn of document.querySelectorAll("[data-pick-addon]")) {
+      addonBtn.addEventListener("click", () => {
+        const code = addonBtn.getAttribute("data-pick-addon");
+        const drawer = document.getElementById("builder-addons-drawer");
+        if (code === "website_rebuild") {
+          const buyoutRadio = document.getElementById("web-buyout");
+          if (buyoutRadio) buyoutRadio.checked = true;
+        } else {
+          if (drawer) drawer.open = true;
+          if (code === "nfc_stand") {
+            const nfcSel = document.getElementById("nfc_stand_qty");
+            if (nfcSel && Number(nfcSel.value || 0) === 0) nfcSel.value = "2";
+          } else if (code === "extra_channel") {
+            const chSel = document.getElementById("extra_channels");
+            if (chSel) chSel.value = String(Math.min(3, Number(chSel.value || 0) + 1));
+          } else {
+            const chk = document.getElementById(`addon-${code}`);
+            if (chk) chk.checked = true;
+          }
+        }
+        recalcQuote();
+        document.getElementById("quote-builder")?.scrollIntoView({ behavior: "smooth" });
+      });
+    }
+
+    quoteForm.addEventListener("submit", (event) => {
+      if (!quoteForm.checkValidity()) {
+        event.preventDefault();
+        const firstInvalid = quoteForm.querySelector(":invalid");
+        if (firstInvalid) firstInvalid.focus();
+        return;
+      }
       const btn = quoteForm.querySelector('button[type="submit"]');
       if (btn) btn.disabled = true;
     });
